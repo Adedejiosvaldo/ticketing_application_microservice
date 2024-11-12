@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  # one copy of the image
+  replicas: 1
+  selector:
+    # tell the deployment what pods to manage
+    matchLabels:
+      app: auth
+      # the label of the pod
+  template:
+    metadata:
+      labels:
+        app: auth
+      spec:
+        containers:
+          - name: auth
+            image: joseph151/auth_service
+        # the label of the pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  # find all the pods with the label app: auth
+  selector:
+    app: auth
+  ports:
+    # Default is a clusterIP
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

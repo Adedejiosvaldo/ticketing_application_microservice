@@ -14,10 +14,17 @@ spec:
     metadata:
       labels:
         app: auth
-      spec:
-        containers:
-          - name: auth
-            image: joseph151/auth_service
+    spec:
+      containers:
+        - name: auth
+          image: joseph151/auth_service
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
         # the label of the pod
 ---
 apiVersion: v1

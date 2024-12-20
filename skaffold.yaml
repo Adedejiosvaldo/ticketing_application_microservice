@@ -1,0 +1,21 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: ticket
+build:
+  local:
+    push: false
+  artifacts:
+    - image: joseph151/auth_service
+      context: auth_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+manifests:
+  rawYaml:
+    - infra/k8s/auth-depl.yaml
+deploy:
+  kubectl: {}
